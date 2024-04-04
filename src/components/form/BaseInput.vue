@@ -28,13 +28,15 @@ const setEvent = (event: Event) => {
 </script>
 
 <style lang="scss">
-
+.v-input{
+  position: relative;
+}
 .custom-counter .v-text-field__slot {
   position: relative;
 }
 .custom-counter .v-counter {
   position: absolute;
-  bottom: 45px;
-  right: 20px;
+  bottom: 25px;
+  right: 15px;
 }
 </style>

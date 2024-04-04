@@ -1,8 +1,5 @@
 <template>
-  <v-btn prepend-icon="mdi-account-circle" color="primary">
-    <template v-slot:prepend>
-        <v-icon color="success"></v-icon>
-      </template>
+  <v-btn v-bind="$attrs" color="primary">
     <slot />
   </v-btn>
 </template>
@@ -12,6 +9,8 @@
 </script>
 
 <style lang="scss" scoped>
-
+.v-btn{
+  height: 40px;
+}
 
 </style>
