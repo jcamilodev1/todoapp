@@ -31,52 +31,14 @@
         </article>
         <article class="todoContainer__footer">
           <v-btn
+            v-for="button in buttons"
+            :key="button.state"
             class="text-capitalize text-primary btn"
+            :class="[button.color, stateData == button.state ? 'btn-active' : '']"
             variant="text"
-            @click="
-              () => {
-                showAllTodos(), stateBtn('all');
-              }
-            "
-            :class="stateData == 'all' ? 'btn-active' : ''"
+            @click="() => { button.action(), stateBtn(button.state) }"
           >
-            All
-          </v-btn>
-          <v-btn
-            class="text-capitalize text-primary btn"
-            variant="text"
-            @click="
-              () => {
-                findPending(), stateBtn('pending');
-              }
-            "
-            :class="stateData == 'pending' ? 'btn-active' : ''"
-          >
-            Pending
-          </v-btn>
-          <v-btn
-            class="text-capitalize text-primary btn"
-            variant="text"
-            @click="
-              () => {
-                findCompleted(), stateBtn('completed');
-              }
-            "
-            :class="stateData == 'completed' ? 'btn-active' : ''"
-          >
-            Completed
-          </v-btn>
-          <v-btn
-            class="text-capitalize text-error btn"
-            variant="text"
-            @click="
-              () => {
-                clearCompleted(), stateBtn('clear');
-              }
-            "
-            :class="stateData == 'clear' ? 'btn-active' : ''"
-          >
-            Clear completed
+            {{ button.text }}
           </v-btn>
         </article>
       </article>
@@ -85,7 +47,13 @@
 </template>
 
 <script setup lang="ts">
-// import BaseInput from "@/components/form/BaseInput.vue";
+
+interface Todo {
+  id: number;
+  name: string;
+  active: boolean;
+}
+
 import BaseButton from "@/components/form/BaseButton.vue";
 import ToDo from "@/components/form/ToDo.vue";
 import { ref, computed } from "vue";
@@ -97,9 +65,9 @@ const filteredTodos = computed(() => useStore.filteredTodos);
 
 const edit = ref(false);
 
-const stateData = ref();
+const stateData = ref('all');
 
-const stateBtn = (state) => {
+const stateBtn = (state: string) => {
   stateData.value = state;
 };
 
@@ -114,12 +82,22 @@ const {
 
 showAllTodos();
 
-console.log(filteredTodos);
+const buttons = [
+  { text: 'All', state: 'all', action: showAllTodos, color: 'text-primary' },
+  { text: 'Pending', state: 'pending', action: findPending, color: 'text-primary' },
+  { text: 'Completed', state: 'completed', action: findCompleted, color: 'text-primary' },
+  { text: 'Clear completed', state: 'clear', action: clearCompleted, color: 'text-error' },
+];
+
 
 const todoValue = ref("");
-const editTodo = ref({});
+const editTodo =  ref<Todo>({
+  id: 0,
+  name: '',
+  active: false,
+});
 
-const handleEditTodo = (todo) => {
+const handleEditTodo = (todo:Todo) => {
   edit.value = true;
   editTodo.value = todo;
   todoValue.value = todo.name;
@@ -139,7 +117,19 @@ const createTodo = () => {
 
 const updateTodo = () => {
   update(editTodo.value.id, todoValue.value);
+  edit.value = false;
+  resetTodo()
 };
+
+const resetTodo = () => {
+  editTodo.value = {
+    id: 0,
+    name: '',
+    active: false,
+  }
+  todoValue.value = ''
+
+}
 </script>
 
 <style lang="scss">

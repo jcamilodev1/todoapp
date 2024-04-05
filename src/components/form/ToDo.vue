@@ -29,6 +29,12 @@
 </template>
 
 <script setup lang="ts">
+interface Todo {
+  id: number;
+  name: string;
+  active: boolean;
+}
+
 import { useTodoStore } from "@/stores/todoStore";
 const useStore = useTodoStore();
 const emit = defineEmits(["edit-todo"]);

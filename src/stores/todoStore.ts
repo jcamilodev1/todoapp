@@ -9,6 +9,7 @@ interface Todo {
 
 export const useTodoStore = defineStore("todoStore", () => {
   const todos = ref<Todo[]>([]);
+  const filteredTodos = ref<Todo[]>([]);
 
   const storedTodos = localStorage.getItem("todos");
   if (storedTodos) {
@@ -36,7 +37,6 @@ export const useTodoStore = defineStore("todoStore", () => {
     updateStoredTodos();
   };
 
-  const filteredTodos = ref([]);
 
   const updateStoredTodos = () => {
     localStorage.setItem("todos", JSON.stringify(todos.value));
@@ -51,7 +51,7 @@ export const useTodoStore = defineStore("todoStore", () => {
   };
 
   const clearCompleted = () => {
-    filteredTodos.value = todos.value.forEach((item) => {
+    filteredTodos.value.forEach((item) => {
       item.active = false;
     });
   };
