@@ -54,8 +54,8 @@ interface Todo {
   active: boolean;
 }
 
-import BaseButton from "@/components/form/BaseButton.vue";
 import ToDo from "@/components/form/ToDo.vue";
+import BaseButton from "@/components/form/BaseButton.vue";
 import { ref, computed } from "vue";
 import { useTodoStore } from "@/stores/todoStore";
 const useStore = useTodoStore();

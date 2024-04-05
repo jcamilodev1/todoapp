@@ -4,7 +4,7 @@
   </v-btn>
 </template>
 
-<script setup>
+<script setup lang="ts">
 
 </script>
 

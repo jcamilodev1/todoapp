@@ -4,18 +4,19 @@
     "useDefineForClassFields": true,
     "module": "ESNext",
     "moduleResolution": "Node",
-    "strict": true,
     "jsx": "preserve",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "esModuleInterop": true,
     "lib": ["ESNext", "DOM"],
-    "skipLibCheck": false,
     "noEmit": true,
-    "noImplicitAny": false,
     "paths": {
       "@/*": ["./src/*"]
     },
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "skipLibCheck": true, // Consider changing to true only as a last resort
+    "esModuleInterop": true
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "src/stores/todoStore.ts"],
   "references": [{ "path": "./tsconfig.node.json" }],

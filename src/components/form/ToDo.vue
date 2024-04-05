@@ -39,7 +39,7 @@ import { useTodoStore } from "@/stores/todoStore";
 const useStore = useTodoStore();
 const emit = defineEmits(["edit-todo"]);
 
-const editTodo = (todo) => {
+const editTodo = (todo: Todo) => {
   emit("edit-todo", todo);
 };
 
@@ -47,7 +47,7 @@ const props = defineProps<{
   todos: Todo[];
 }>();
 
-const updateTodo = (todo) => {
+const updateTodo = (todo: Todo) => {
   useStore.update(todo.id, todo.name);
 };
 </script>
