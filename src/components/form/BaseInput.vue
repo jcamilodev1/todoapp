@@ -6,29 +6,31 @@
     density="compact"
     :counter="36"
     :maxlength="36"
-    v-bind="$attrs" 
-    @input="$emit('update:modelValue', setEvent($event))"
+    v-bind="$attrs"
+    @input="$emit('update:modelValue', $event.target.value)"
+    hide-details
+    :value="modelValue"
   ></v-text-field>
 </template>
 
 <script setup lang="ts">
 defineProps({
   modelValue: {
-    type: [String, Number, Date],
-    default: null,
-    },
+    type: [String],
+    default: "",
+  },
   name: {
-    type: String
-  }
-})
+    type: String,
+  },
+});
 const setEvent = (event: Event) => {
   const target = event.target as HTMLInputElement;
-  return target.value ?? '';
+  return target.value ?? "";
 };
 </script>
 
 <style lang="scss">
-.v-input{
+.v-input {
   position: relative;
 }
 .custom-counter .v-text-field__slot {
